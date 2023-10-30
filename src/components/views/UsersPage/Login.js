@@ -1,10 +1,14 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from "../../../_reducers/userSlice";
 
 function Login() {
 
     const [Id, setId] = useState('');
     const [Pw, setPw] = useState('');
+    const dispatch = useDispatch();
+    const Navigate = useNavigate();
 
     const onIdHandler = (e) => {
         setId(e.currentTarget.value);
@@ -19,12 +23,16 @@ function Login() {
             id : Id,
             pw : Pw,
         }
-        axios.get('/api/users/login').then((res)=>{console.log(res.data)})
-
-        axios.post('/api/users/login', data)
-        .then((res)=>{console.log(res.data)})
-        .catch((err)=>{
-            console.error(err);
+        dispatch(loginUser(data))
+        .then((res)=>{
+            const result = res.payload.result.data.loginSuccess
+            console.log(result)
+            if(!result.success) {
+                alert(result.msg);
+            } else {
+                alert('로그인 완료!')
+                Navigate('/')
+            }
         })
         
     }
