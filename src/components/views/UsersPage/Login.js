@@ -26,7 +26,7 @@ function Login() {
         dispatch(loginUser(data))
         .then((res)=>{
             const result = res.payload.result.data.loginSuccess
-            console.log(result)
+            // console.log(result)
             if(!result.success) {
                 alert(result.msg);
             } else {

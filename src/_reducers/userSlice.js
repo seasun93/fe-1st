@@ -16,11 +16,12 @@ const userSlice = createSlice({
     name : 'user',
     initialState : {
         isLoggedIn : false,
-        user : '',
+        user : {},
     },
     reducers : {},
     extraReducers : (builder)=>{
         builder.addCase(loginUser.fulfilled, (state, action)=>{
+            console.log(action.payload.result)
             const data = action.payload.result.data.loginSuccess
             
             if(data.success){
