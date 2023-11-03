@@ -33,7 +33,7 @@ function Register(props) {
         setId(e.currentTarget.value.replace(/[^a-zA-Z0-9]/gi, ''))
         
         if(!egNum.test(Id)){
-            idMsg.current.innerText = "4~12자로된 영문 혹은 숫자 조합"            
+            idMsg.current.innerText = "4~12자로된 영문 혹은 숫자 조합"
         } else {
             idMsg.current.innerText = ""
         }

@@ -29,7 +29,14 @@ function Login() {
 
         axios.post('/api/users/login', data)
             .then((res)=>{
-                navigate('/');
+                const result = res.data.loginSuccess;
+                if(!result.success){
+                    //로그인 실패
+                    alert(result.msg);
+                    return
+                }
+                alert('로그인되었습니다.');
+                navigate(-1);
             })
     }
 

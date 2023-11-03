@@ -39,16 +39,18 @@ function Header() {
                             <li><Link to="/login"> SIGN IN </Link></li>
                         </>)
                         :  <>
-                            <li><Link to="/link1"> link1 </Link></li>
                             <li><Link to="/mypage"> MYPAGE </Link></li>
                             <li><button onClick={onLogoutHandler}>LOGOUT</button></li>
                         </>
                         }
+                        {(user.isLoggedIn && user.user.isAdmin ) && <li><Link to="/admin">관리자모드</Link></li>}
                     </ul>
                 </div>
                 <div className="nav-btm">
                     <ul>
                         <li><Link to="/"> Home </Link></li>
+                        <li><Link to="/portfolio">PORTFOLIO</Link></li>
+                        <li><Link to="/board">게시판</Link></li>
                     </ul>
                 </div>
             </div>        

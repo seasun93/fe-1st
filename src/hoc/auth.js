@@ -24,28 +24,30 @@ export default function withAuthenticationCheck(SpecificComponent, option, admin
             // ture = 회원만 이용 할 수 있는 페이지
 
             // 누구나 접근이 가능한 사이트
+            console.log(option)
             dispatch(auth()).then((res)=>{
                 if(user.isLoggedIn){
-                    console.log()
                     if (adminRoute && !user.user.isAdmin) { // 로그인 했지만 admin 페이지고 등급이 admin이 아닐 때
-                        console.log('// 로그인 했지만 admin 페이지고 등급이 admin이 아닐 때')
+                        // console.log('// 로그인 했지만 admin 페이지고 등급이 admin이 아닐 때')
                         alert('접근할 수 없습니다.');
                         navigate('/');
                     }                    
-                    if (!option) { // 로그인했지만 로그인한 경우 접근 할 수 없는 페이지인 경우
-                        console.log('// 로그인했지만 로그인한 경우 접근 할 수 없는 페이지인 경우')
+                    if (!option && option !== null) { // 로그인했지만 로그인한 경우 접근 할 수 없는 페이지인 경우
+                        // console.log('// 로그인했지만 로그인한 경우 접근 할 수 없는 페이지인 경우')
                         navigate('/');
                     }
                 } else {
                     if (!user.isLoggedIn && user.isLoggedIn !== undefined && option) { // 로그인을 안했지만 로그인을 해야지만 접근 할 수 있는 경우
-                        console.log('// 로그인을 안했지만 로그인을 해야지만 접근 할 수 있는 경우')
+                        // console.log('// 로그인을 안했지만 로그인을 해야지만 접근 할 수 있는 경우')
                         alert('회원전용입니다.');
                         navigate('/login');
                     }
                 }
                 if (option === null && user.isLoggedIn) { // 누구나 접근할수 있는데 로그인을 한 경우
+                    // console.log('// 누구나 접근 가능한데 로그인을 한경우')
                     return <SpecificComponent props = {user.user}/>
                 } else if(option === null && !user.isLoggedIn && user.isLoggedIn !== undefined) {
+                    // console.log('// 누구나 접근 가능한데 로그인을 안한경우')
                     return <SpecificComponent />
                 }
             })

@@ -11,8 +11,8 @@ function Edit(props) {
 
     const [Pw, setPw] = useState('');
     const [PwCk, setPwCk] = useState('');
-    const [Nm, setNm] = useState(user.user.name);
-
+    const [Nm, setNm] = useState(user.isLoggedIn ? user.user.name : '')
+    
     const inputId = useRef(null);
     const inputPw = useRef(null);
     const inputPwCk = useRef(null);
@@ -67,7 +67,7 @@ function Edit(props) {
             alert('이름을 입력하세요')
             return inputNm.current.focus();
         }
-        console.log(inputNm.current.value)
+        
         if(inputId.current.value !== null && Pw !== null && PwCk == Pw && inputNm.current.value !== null){
             const data = {
                 id : inputId.current.value,
@@ -78,8 +78,8 @@ function Edit(props) {
             axios.post('/api/users/edit', data).then((res)=>{
                 if(res.data.success){
                     alert('수정이 완료되었습니다. 다시 로그인 하세요.');
-                    dispatch(edit());
                     navigate('/');
+                    dispatch(edit());
                 } else {
                     alert('수정 실패. 입력한 정보를 확인하세요');
                 }
