@@ -1,40 +1,36 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from "../../../_reducers/userSlice";
 
 function Login() {
-
+    
     const [Id, setId] = useState('');
     const [Pw, setPw] = useState('');
-    const dispatch = useDispatch();
-    const Navigate = useNavigate();
+    const navigate = useNavigate();
+    const user = useSelector((state) => state.user);
 
     const onIdHandler = (e) => {
-        setId(e.currentTarget.value);
+        setId(e.currentTarget.value.replace(/[^a-zA-Z0-9]/gi, ''))
     }
     const onPwHandler = (e) => {
         setPw(e.currentTarget.value);
     }
-    
+
+    if(user.isLoggedIn) {
+        navigate('/');
+    }
     const onSubmitHandler = (e) => {
         e.preventDefault();
         const data = {
             id : Id,
             pw : Pw,
         }
-        dispatch(loginUser(data))
-        .then((res)=>{
-            const result = res.payload.result.data.loginSuccess
-            // console.log(result)
-            if(!result.success) {
-                alert(result.msg);
-            } else {
-                alert('로그인 완료!')
-                Navigate('/')
-            }
-        })
-        
+
+        axios.post('/api/users/login', data)
+            .then((res)=>{
+                navigate('/');
+            })
     }
 
     return (

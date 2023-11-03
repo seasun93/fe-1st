@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { AUTH } from './types';
+import {
+    AUTH
+} from './types';
 
 export const auth = createAsyncThunk('user/auth', async () => {
     const res = await axios.get('/api/users/auth');
@@ -16,7 +18,16 @@ const authSlice = createSlice({
         isLoggedIn : false,
         user : null,
     },
-    reducers : {},
+    reducers : {
+        logout : (state)=>{
+            state.isLoggedIn = false;
+            state.user = null;
+        },
+        edit : (state)=>{
+            state.isLoggedIn = false;
+            state.user = null;
+        }
+    },
     extraReducers : (builder)=>{
         builder.addCase(auth.fulfilled, (state, action)=>{
             const data = action.payload.result;
@@ -30,4 +41,5 @@ const authSlice = createSlice({
 
 })
 
+export const { logout, edit } = authSlice.actions;
 export default authSlice.reducer;
