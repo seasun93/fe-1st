@@ -24,7 +24,6 @@ export default function withAuthenticationCheck(SpecificComponent, option, admin
             // ture = 회원만 이용 할 수 있는 페이지
 
             // 누구나 접근이 가능한 사이트
-            console.log(option)
             dispatch(auth()).then((res)=>{
                 if(user.isLoggedIn){
                     if (adminRoute && !user.user.isAdmin) { // 로그인 했지만 admin 페이지고 등급이 admin이 아닐 때

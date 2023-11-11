@@ -50,7 +50,7 @@ function Header() {
                     <ul>
                         <li><Link to="/"> Home </Link></li>
                         <li><Link to="/portfolio">PORTFOLIO</Link></li>
-                        <li><Link to="/board">게시판</Link></li>
+                        <li><Link to="/board/list/1">게시판</Link></li>
                     </ul>
                 </div>
             </div>        

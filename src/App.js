@@ -21,6 +21,10 @@ function App() {
   // false = 회원이 이용 할 수 없는 페이지
   // true = 회원만 이용 할 수 있는 페이지
 
+  //게시판 타입
+  // baord = 1
+  // portfolio = 2
+
   const RegisterPage = Auth(Register, false);
   const LoginPage = Auth(Login, false);
   const MainPage = Auth(Main, null);
@@ -33,7 +37,7 @@ function App() {
   const BdViewPage = Auth(BdView, null);
 
   return (
-    <div className="view">
+    <>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />}/>
@@ -43,12 +47,12 @@ function App() {
           <Route path="/edit" element={<EditPage />}/>
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/portfolio/view/:idx" element={<PfViewPage />} />
-          <Route path="/board" element={<BoardPage />} />
+          <Route path="/board/list/:page" element={<BoardPage />} />
           <Route path="/board/view/:idx" element={<BdViewPage />} />
           <Route path="/board/write/" element={<BdWritePage />} />
         </Route>
       </Routes>
-    </div>
+    </>
   );
 }
 
