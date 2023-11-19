@@ -23,9 +23,10 @@ function Board() {
   useEffect(() => {
     listData();
   },[params.page])
-  
+
   const listData = async()=>{
     const result = await axios.get(`/api/board/list/${params.page}`).then((res)=>{
+      console.log(res)
       setTotal(res.data.length);
       setList(res.data.data);
     })
@@ -60,7 +61,7 @@ function Board() {
           <tbody>
           {
               list.map((el)=>{
-                const date = el.newDate
+                const date = el.regDate
                 // console.log(date)
                 const KST = new Date(date);
                 const creatYear = KST.getFullYear();
@@ -75,6 +76,10 @@ function Board() {
                 const currentHour = currentTime.getHours();
                 const currentMinute = currentTime.getMinutes();
                 let time = '';
+
+                console.log(creatHour)
+                console.log(currentHour - creatHour)
+                console.log(`currentHour - creatHour : ${currentHour - creatHour}`)
 
                 if(currentMinute - creatMinute < 1 && currentHour == creatHour) {
                   //시간이 현재시간과 작성시간이 일치하면서 분 차이가 안나는 경우

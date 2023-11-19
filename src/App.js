@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
+import BdUpdate from './components/views/BoardPage/BdUpdate';
 import BdView from './components/views/BoardPage/BdView';
 import BdWrite from './components/views/BoardPage/BdWrite';
 import Board from './components/views/BoardPage/Board';
@@ -35,6 +36,7 @@ function App() {
   const PfViewPage = Auth(PfView, null);
   const BdWritePage = Auth(BdWrite, true);
   const BdViewPage = Auth(BdView, null);
+  const BdUpdatePage = Auth(BdUpdate, true);
 
   return (
     <>
@@ -49,6 +51,7 @@ function App() {
           <Route path="/portfolio/view/:idx" element={<PfViewPage />} />
           <Route path="/board/list/:page" element={<BoardPage />} />
           <Route path="/board/view/:idx" element={<BdViewPage />} />
+          <Route path="/board/update/:idx" element={<BdUpdatePage />} />
           <Route path="/board/write/" element={<BdWritePage />} />
         </Route>
       </Routes>

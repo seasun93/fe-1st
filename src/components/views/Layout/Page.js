@@ -7,9 +7,9 @@ function Page({total, limit, page, type}) {
 
     const pagination = () =>{
         const htmlTag = [];        
-        if(intPage < 3 ){
+        if(intPage <= 3 ){
             if(items <= 5 ){
-                console.log('page 1,2 / items 5이하')
+                // console.log('page 1,2,3 / items 5이하')
                 for(let i = 1; i <items + 1 ; i++){
                     htmlTag.push(<Link key = {i} to={`/${type}/list/${i}`} className={intPage == i ? 'page-btn page-active' : 'page-btn'}>{i}</Link>)
                 }
@@ -23,17 +23,27 @@ function Page({total, limit, page, type}) {
         }
         if(intPage >= 3){
             if(intPage == items){
-                console.log('page == total')
+                // console.log('page == total')
+                if(page <= 5){
+                    // console.log('페이지와 total 일치하지만 total이 5보다 작을 때')
+                    for(let i = 1; i < items + 1; i++){
+                        console.log(i)
+                        htmlTag.push(<Link key = {i} to={`/${type}/list/${i}`} className={intPage == i ? 'page-btn page-active' : 'page-btn'}>{i}</Link>)
+                    }
+                    return htmlTag
+                }
                 for(let i = items-5; i < items; i++){
+                    console.log(i)
                     htmlTag.push(<Link key = {i} to={`/${type}/list/${i+1}`} className={intPage -1 == i ? 'page-btn page-active' : 'page-btn'}>{i+1}</Link>)
                 }
                 return htmlTag
             }
             if(items <= 5 ){
-                console.log('page 3이상, items 5이하')
+                // console.log('page 3이상, items 5이하')
                 for(let i = 1; i < items + 1; i++){
                     htmlTag.push(<Link key = {i} to={`/${type}/list/${i}`} className={intPage == i ? 'page-btn page-active' : 'page-btn'}>{i}</Link>)
                 }
+                return htmlTag
             } else {
                 if(items - intPage >= 2 ){
                     console.log('page 3이상, items 5이상, page와 items차이가 2보다 같거나 클 때')
@@ -42,14 +52,15 @@ function Page({total, limit, page, type}) {
                     htmlTag.push(<Link key = {intPage} to={`/${type}/list/${intPage}`} className='page-btn page-active'>{intPage}</Link>)
                     htmlTag.push(<Link key = {intPage + 1 } to={`/${type}/list/${intPage + 1 }`} className='page-btn'>{intPage + 1}</Link>)
                     htmlTag.push(<Link key = {intPage + 2 } to={`/${type}/list/${intPage + 2 }`} className='page-btn'>{intPage + 2}</Link>)
+                    return htmlTag
                 } else {
                     console.log('page 3이상, items 5이상인데 page와 items 차이가 2보다 작을 때')
                     for(let i = intPage - 3; i < items + 1; i++){
                         htmlTag.push(<Link key = {i} to={`/${type}/list/${i}`} className={intPage == i ? 'page-btn page-active' : 'page-btn'}>{i}</Link>)
                     }
+                    return htmlTag
                 }
             }
-            return htmlTag
         }
     }
 
